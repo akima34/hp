@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Happy 18th, Nazym (Copy)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Nunito:wght@400;600;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: warm, tender, a little dramatic - a love note from a best friend
+   IDEA: 18 real candles in a row to blow out
+   PICTURE: an arch of 18 tall candles, tap to blow out, confetti on the last one
+   COLOUR and TYPE: black ground, burgundy bands, dark red, bright crimson accent; Yeseva One titles, Nunito body, Caveat for handwriting
+   LAYOUT: one continuous dark-red background; candles, song player, closing band */
+:root{color-scheme:dark;
+  --bg:#0a0507;
+  --ink:#f6e6e9;
+  --soft:#c9a3ab;
+  --cherry:#5a0b1e;
+  --cherry-ink:#fbecef;
+  --blush:#14080b;
+  --paper:#1c0b10;
+  --gold:#e23a4e;
+  --line:#3d1520}
+:root[data-theme=light],:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 Nunito,system-ui,sans-serif;overflow-x:clip}
+h1,h2{font-family:"Yeseva One",Georgia,serif;font-weight:400;line-height:1.05;text-wrap:balance;margin:0}
+h2{font-size:clamp(32px,5vw,48px)}
+.band{padding:clamp(40px,6vw,88px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+a{color:inherit}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+/* one continuous background for the whole page */
+.bgfx{position:fixed;inset:0;z-index:-1;pointer-events:none;background:
+ radial-gradient(60% 45% at 50% 0%,rgba(150,18,42,.55),transparent 70%),
+ radial-gradient(50% 40% at 0% 100%,rgba(110,12,32,.45),transparent 70%),
+ radial-gradient(45% 35% at 100% 70%,rgba(90,11,30,.4),transparent 70%),
+ linear-gradient(180deg,#14060a 0%,#0a0507 50%,#12050a 100%)}
+.bgfx::after{content:"";position:absolute;inset:0;opacity:.07;background-image:radial-gradient(circle,#fff 1px,transparent 1.3px);background-size:42px 42px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 80%);mask-image:linear-gradient(180deg,#000,transparent 80%)}
+/* nav */
+nav{position:sticky;top:0;z-index:20;background:rgba(10,5,7,.55);backdrop-filter:blur(8px);color:var(--cherry-ink);border-bottom:1px solid rgba(255,255,255,.12)}
+nav .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 20px;padding:10px max(5vw,16px)}
+.logo{font-family:"Yeseva One",serif;font-size:22px;text-decoration:none}
+.logo span{color:#ff6b7d}
+nav ul{display:flex;flex-wrap:wrap;gap:4px;list-style:none;margin:0;padding:0}
+nav ul a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border-radius:22px;text-decoration:none;font-weight:600;font-size:15px}
+nav ul a:hover{background:rgba(255,255,255,.14)}
+
+/* hero */
+.hero{background:transparent;color:var(--cherry-ink);position:relative;overflow:hidden}
+.hero .wrap{display:flex;flex-direction:column;align-items:center;text-align:center}
+.hero p.lead{margin-left:auto;margin-right:auto}
+.hero .btns{justify-content:center}
+.hero .kicker{font-family:Caveat,cursive;font-size:30px;color:#ff8a98;margin:0 0 6px}
+.hero h1{font-size:clamp(48px,8.5vw,104px)}
+.hero h1 em{font-style:normal;color:#ff8a98}
+.hero p.lead{font-size:19px;max-width:30em;margin:20px 0 26px;opacity:.92}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{min-height:48px;padding:0 24px;border-radius:24px;border:2px solid var(--gold);background:var(--gold);color:#fff;font-weight:800;font-size:16px}
+.btn.ghost{background:transparent;color:var(--cherry-ink);border-color:rgba(255,255,255,.5)}
+.btn:hover{transform:translateY(-1px)}
+.status{font-family:Caveat,cursive;font-size:26px;min-height:1.5em;margin:18px 0 0;color:#ff8a98}
+.cake{position:relative;aspect-ratio:600/300;width:min(100%,900px);margin:8px auto 18px}
+.cake svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.flame{transform-box:fill-box;transform-origin:50% 100%;animation:flick 1.1s ease-in-out infinite alternate;transition:opacity .35s,transform .35s}
+.candle{cursor:pointer}
+.candle.out .flame{opacity:0;transform:scale(.2);animation:none}
+.candle.out .smoke{opacity:1;animation:smoke 1.6s ease-out forwards}
+.smoke{opacity:0}
+@keyframes flick{from{transform:scaleY(1) rotate(-3deg)}to{transform:scaleY(1.15) rotate(3deg)}}
+@keyframes smoke{from{transform:translateY(0);opacity:.7}to{transform:translateY(-40px);opacity:0}}
+.dots{position:absolute;inset:0;pointer-events:none;opacity:.08;background-image:radial-gradient(circle,#fff 1.4px,transparent 1.6px);background-size:34px 34px}
+
+/* wishes */
+.wishes{background:var(--blush);border-top:1px solid var(--line)}
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px 32px;margin-bottom:32px}
+.head p{margin:0;max-width:34em;color:var(--soft)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));gap:16px}
+.note{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:22px 20px 20px;box-shadow:0 10px 24px -12px rgba(0,0,0,.8);transition:transform .25s}
+.note:nth-child(3n+1){transform:rotate(-1.2deg)}.note:nth-child(3n+2){transform:rotate(.9deg)}
+.note:hover{transform:rotate(0) translateY(-3px)}
+.note b{display:block;font-family:"Yeseva One",serif;font-weight:400;font-size:20px;color:#ff6b7d;margin-bottom:4px}
+.note span{font-size:16px;color:var(--soft)}
+.note::before{content:"";position:absolute;top:-9px;left:50%;width:56px;height:18px;margin-left:-28px;background:#8b0f24;opacity:.9;border-radius:3px;transform:rotate(-3deg)}
+
+/* letter */
+.letter .wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px,5vw,64px);align-items:start}
+.letter .side p{color:var(--soft)}
+.paper{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:clamp(24px,4vw,48px);box-shadow:0 24px 48px -24px rgba(0,0,0,.9);background-image:repeating-linear-gradient(transparent 0 39px,var(--line) 39px 40px);background-position:0 18px}
+.paper p{font-family:Caveat,cursive;font-size:clamp(22px,2.6vw,27px);line-height:40px;margin:0 0 40px}
+.paper p:last-child{margin:0}
+.sign{text-align:right;color:#ff6b7d}
+.sample{font-size:13px;color:var(--soft);margin-top:12px}
+
+/* eighteen */
+.eighteen{background:transparent;color:var(--cherry-ink);text-align:center}
+.big{font-family:"Yeseva One",serif;font-size:clamp(120px,24vw,260px);line-height:.9;color:#f6e6e9;text-shadow:0 0 40px rgba(226,58,78,.6);margin:0}
+.eighteen h2{margin-top:8px}
+.eighteen p{max-width:36em;margin:18px auto 28px;opacity:.92}
+footer{padding:28px max(5vw,16px);text-align:center;font-size:14px;color:var(--soft)}
+/* song player */
+.song{background:transparent}
+.song .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:center}
+.song .kick{font-family:Caveat,cursive;font-size:28px;color:#ff8a98;margin:0 0 6px}
+.song .side p{color:var(--soft);max-width:30em}
+.player{background:linear-gradient(160deg,#2a0a12,#120609);border:1px solid var(--line);border-radius:28px;padding:clamp(22px,3.5vw,36px);box-shadow:0 30px 60px -30px rgba(0,0,0,.95)}
+.disc-wrap{position:relative;width:min(100%,340px);aspect-ratio:1;margin:0 auto 26px}
+.cover{position:absolute;inset:0;border-radius:18px;overflow:hidden;background:radial-gradient(circle at 30% 25%,#e23a4e,#5a0b1e 55%,#1a070c);box-shadow:0 18px 40px -14px rgba(0,0,0,.9);z-index:2;display:grid;place-items:center}
+.cover img{width:100%;height:100%;object-fit:cover;display:block}
+.cover .ph{font-family:"Yeseva One",serif;font-size:clamp(28px,5vw,40px);color:#fbecef;text-align:center;line-height:1.1;padding:20px}
+.cover .ph small{display:block;font-family:Nunito,sans-serif;font-size:14px;opacity:.75;margin-top:8px}
+.vinyl{position:absolute;top:6%;bottom:6%;right:-2%;aspect-ratio:1;border-radius:50%;background:repeating-radial-gradient(circle,#111 0 2px,#1d1d1d 2px 4px);z-index:1;transition:transform .6s ease}
+.vinyl::after{content:"";position:absolute;inset:36%;border-radius:50%;background:#8b0f24;box-shadow:inset 0 0 0 6px #5a0b1e}
+.player.playing .vinyl{transform:translateX(34%);animation:spin 3s linear infinite}
+@keyframes spin{from{transform:translateX(34%) rotate(0)}to{transform:translateX(34%) rotate(360deg)}}
+.meta{text-align:center;margin-bottom:18px}
+.meta h3{font-family:"Yeseva One",serif;font-weight:400;font-size:28px;margin:0;line-height:1.1}
+.meta p{margin:4px 0 0;color:var(--soft);font-size:16px}
+.bar{position:relative;height:6px;border-radius:3px;background:#3d1520;cursor:pointer}
+.bar i{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:3px;background:#e23a4e}
+.times{display:flex;justify-content:space-between;font-size:13px;color:var(--soft);margin:8px 0 14px;font-variant-numeric:tabular-nums}
+.ctrls{display:flex;justify-content:center;align-items:center;gap:18px}
+.ic{width:48px;height:48px;border-radius:50%;border:0;background:transparent;color:var(--ink);display:grid;place-items:center}
+.ic:hover{background:rgba(255,255,255,.07)}
+.play{width:72px;height:72px;border-radius:50%;border:0;background:#e23a4e;color:#fff;display:grid;place-items:center;box-shadow:0 10px 30px -8px rgba(226,58,78,.7);text-decoration:none}
+.play svg,.ic svg{display:block}
+.spot{display:flex;justify-content:center;margin-top:20px}
+.spot a{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 20px;border-radius:22px;border:1px solid var(--line);text-decoration:none;font-weight:700;font-size:15px}
+.spot a:hover{background:rgba(255,255,255,.06)}
+.pnote{text-align:center;font-size:13px;color:var(--soft);margin:12px 0 0;min-height:1.2em}
+@media(max-width:860px){.song .wrap{grid-template-columns:minmax(0,1fr)}}
+@media(prefers-reduced-motion:reduce){.player.playing .vinyl{animation:none}}
+#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50}
+
+
+@media(max-width:600px){nav ul{display:none}.hero h1{font-size:clamp(44px,13vw,64px)}}
+@media(prefers-reduced-motion:reduce){.flame{animation:none}html{scroll-behavior:auto}.note,.btn{transition:none}}
+</style>
+</head>
+<body>
+<div class="bgfx" aria-hidden="true"></div>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top">Nazym <span>18</span></a>
+    <ul>
+      <li><a href="#cake">Candles</a></li>
+      <li><a href="#song">Song</a></li>
+      <li><a href="#celebrate">Celebrate</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero band" id="top">
+  <div class="wrap" id="cake">
+    <p class="kicker">Today is all about you</p>
+    <h1>Happy 18th Birthday, <em>Nazym!</em></h1>
+    <p class="lead">Eighteen candles, one for every year. Close your eyes, make a wish, and blow them all out.</p>
+    <div class="cake">
+      <svg viewBox="0 0 600 300" role="img" aria-label="A row of 18 lit candles">
+        <defs>
+          <linearGradient id="wax" x1="0" x2="1"><stop offset="0" stop-color="#d9c2b4"/><stop offset=".45" stop-color="#fbefe6"/><stop offset="1" stop-color="#c9ae9f"/></linearGradient>
+          <linearGradient id="waxr" x1="0" x2="1"><stop offset="0" stop-color="#6e0c20"/><stop offset=".45" stop-color="#b31a30"/><stop offset="1" stop-color="#5a0b1e"/></linearGradient>
+          <linearGradient id="fl" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#fff7d6"/><stop offset=".5" stop-color="#ffc45a"/><stop offset="1" stop-color="#ff6a2f"/></linearGradient>
+          <radialGradient id="glow"><stop offset="0" stop-color="#ffb35a" stop-opacity=".5"/><stop offset="1" stop-color="#ff7a3a" stop-opacity="0"/></radialGradient>
+          <linearGradient id="shelf" x1="0" x2="1"><stop offset="0" stop-color="#e23a4e" stop-opacity="0"/><stop offset=".5" stop-color="#e23a4e" stop-opacity=".6"/><stop offset="1" stop-color="#e23a4e" stop-opacity="0"/></linearGradient>
+        </defs>
+        <ellipse cx="300" cy="286" rx="290" ry="12" fill="#000" opacity=".45"/>
+        <rect x="10" y="278" width="580" height="2" fill="url(#shelf)"/>
+        <g id="candles"></g>
+      </svg>
+    </div>
+    <div class="btns">
+      <button class="btn" id="blow">Blow out the candles</button>
+      <button class="btn ghost" id="relight">Light them again</button>
+    </div>
+    <p class="status" id="status" aria-live="polite">Tap a candle or press the button</p>
+  </div>
+</header>
+
+<section class="song band" id="song">
+  <div class="wrap">
+    <div class="side">
+      <p class="kick">Press play</p>
+      <h2>A song for your birthday</h2>
+      <p>Turn the volume up, Nazym. This one is for you.</p>
+    </div>
+    <div class="player" id="player">
+      <div class="disc-wrap">
+        <div class="vinyl"></div>
+        <div class="cover" id="cover"><div class="ph">Lovers Rock<small>TV Girl</small></div></div>
+      </div>
+      <div class="meta">
+        <h3>Lovers Rock</h3>
+        <p>TV Girl · French Exit</p>
+      </div>
+      <div class="bar" id="bar" role="slider" aria-label="Song position" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0"><i id="fill"></i></div>
+      <div class="times"><span id="cur">0:00</span><span id="dur">3:34</span></div>
+      <div class="ctrls">
+        <button class="ic" id="back" aria-label="Back 10 seconds"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button>
+        <a class="play" id="play" href="#song" aria-label="Play"><svg id="picon" width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></a>
+        <button class="ic" id="fwd" aria-label="Forward 10 seconds"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg></button>
+      </div>
+      <p class="pnote" id="pnote"></p>
+      <audio id="audio" preload="metadata" src="song.mp3"></audio>
+    </div>
+  </div>
+</section>
+
+<section class="eighteen band" id="celebrate">
+  <div class="wrap">
+    <p class="big">18</p>
+    <h2>Officially grown up, forever young at heart</h2>
+    <p>Here's to new adventures, big dreams and a year full of reasons to smile. Happy birthday, Nazym. The best is only just beginning.</p>
+    <button class="btn" id="party">Throw the confetti</button>
+  </div>
+</section>
+
+<footer>Made with love for Nazym's 18th birthday</footer>
+
+<script>
+{
+
+/* candles */
+const NS='http://www.w3.org/2000/svg',g=document.getElementById('candles');
+const spots=[];
+for(let i=0;i<18;i++){const x=26+i*32.3,h=Math.round(110+80*Math.sin(Math.PI*i/17));spots.push([x,278,h,i%3===1])}
+let html='';
+spots.forEach(([x,y,h,red],i)=>{
+  const w=13,top=y-h;
+  html+=`<g class="candle" data-i="${i}" tabindex="0" role="button" aria-label="Candle ${i+1}">
+    <rect x="${x-15}" y="${top-46}" width="30" height="${h+46}" fill="transparent"/>
+    <rect x="${x-w/2}" y="${top}" width="${w}" height="${h}" rx="3" fill="url(#${red?'waxr':'wax'})"/>
+    <path d="M${x-w/2} ${top+3} q2 9 4 0 q2 14 4 2 q2 6 5 -2" fill="${red?'#c42a40':'#fff8f1'}" opacity=".9"/>
+    <line x1="${x}" y1="${top}" x2="${x}" y2="${top-7}" stroke="#2a1a1a" stroke-width="1.6"/>
+    <g class="flame"><circle cx="${x}" cy="${top-18}" r="26" fill="url(#glow)"/><path d="M${x} ${top-36} C${x+8} ${top-22} ${x+7} ${top-8} ${x} ${top-6} C${x-7} ${top-8} ${x-8} ${top-22} ${x} ${top-36}Z" fill="url(#fl)"/><path d="M${x} ${top-22} C${x+3} ${top-16} ${x+3} ${top-10} ${x} ${top-9} C${x-3} ${top-10} ${x-3} ${top-16} ${x} ${top-22}Z" fill="#fff" opacity=".7"/></g>
+    <circle class="smoke" cx="${x}" cy="${top-14}" r="4" fill="#bbb"/>
+  </g>`;
+});
+g.innerHTML=html;
+const candles=[...g.querySelectorAll('.candle')];
+g.querySelectorAll('.flame').forEach((f,i)=>f.style.animationDelay=(i*0.13%1).toFixed(2)+'s');
+
+/* sound effects (synthesized, no extra files) */
+let actx;
+function ac(){try{actx=actx||new(window.AudioContext||window.webkitAudioContext)();if(actx.state==='suspended')actx.resume()}catch(e){}return actx}
+function noiseSrc(c,dur){const b=c.createBuffer(1,Math.floor(c.sampleRate*dur),c.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;const s=c.createBufferSource();s.buffer=b;return s}
+function sfxOut(){
+  const c=ac();if(!c)return;const t=c.currentTime,k=.85+Math.random()*.3;
+  const n=noiseSrc(c,.4),f=c.createBiquadFilter(),g=c.createGain();
+  f.type='bandpass';f.Q.value=.9;f.frequency.setValueAtTime(2000*k,t);f.frequency.exponentialRampToValueAtTime(450*k,t+.32);
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.3,t+.03);g.gain.exponentialRampToValueAtTime(.001,t+.36);
+  n.connect(f);f.connect(g);g.connect(c.destination);n.start(t);n.stop(t+.4);
+}
+function sfxLight(){
+  const c=ac();if(!c)return;const t=c.currentTime;
+  /* match strike: short scratchy burst */
+  const a=noiseSrc(c,.2),hf=c.createBiquadFilter(),ga=c.createGain();
+  hf.type='highpass';hf.frequency.value=3500;
+  ga.gain.setValueAtTime(0,t);ga.gain.linearRampToValueAtTime(.25,t+.01);ga.gain.setValueAtTime(.25,t+.1);ga.gain.exponentialRampToValueAtTime(.001,t+.2);
+  a.connect(hf);hf.connect(ga);ga.connect(c.destination);a.start(t);a.stop(t+.2);
+  /* flame whoosh: soft rising rumble */
+  const b=noiseSrc(c,.7),lf=c.createBiquadFilter(),gb=c.createGain();
+  lf.type='lowpass';lf.Q.value=.7;lf.frequency.setValueAtTime(300,t+.15);lf.frequency.exponentialRampToValueAtTime(1400,t+.5);
+  gb.gain.setValueAtTime(0,t+.15);gb.gain.linearRampToValueAtTime(.35,t+.3);gb.gain.exponentialRampToValueAtTime(.001,t+.75);
+  b.connect(lf);lf.connect(gb);gb.connect(c.destination);b.start(t+.15);b.stop(t+.85);
+}
+
+const status=document.getElementById('status');
+const left=()=>candles.filter(c=>!c.classList.contains('out')).length;
+let celebrated=false;
+function update(){
+  const n=left();
+  if(n===0){status.textContent='Your wish is on its way. Happy birthday, Nazym!';if(!celebrated){celebrated=true;confetti()}}
+  else if(n===18)status.textContent='Tap a candle or press the button';
+  else status.textContent=n+(n===1?' candle':' candles')+' left. Keep going!';
+}
+function out(el){if(el.classList.contains('out'))return;el.classList.add('out');sfxOut();update()}
+candles.forEach(el=>{
+  el.addEventListener('click',()=>out(el));
+  el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();out(el)}});
+});
+let timer;
+document.getElementById('blow').addEventListener('click',()=>{
+  clearInterval(timer);
+  const lit=candles.filter(c=>!c.classList.contains('out'));
+  let k=0;timer=setInterval(()=>{if(k>=lit.length){clearInterval(timer);return}out(lit[k++])},90);
+});
+document.getElementById('relight').addEventListener('click',()=>{
+  const any=candles.some(c=>c.classList.contains('out'));clearInterval(timer);candles.forEach(c=>c.classList.remove('out'));if(any)sfxLight();celebrated=false;update();
+});
+document.getElementById('party').addEventListener('click',()=>confetti());
+
+/* player: plays song.mp3 shipped with the page */
+const au=document.getElementById('audio'),pl=document.getElementById('player'),pb=document.getElementById('play'),pi=document.getElementById('picon'),fill=document.getElementById('fill'),bar=document.getElementById('bar'),cur=document.getElementById('cur'),dur=document.getElementById('dur'),pnote=document.getElementById('pnote');
+const fmt=t=>{t=Math.max(0,Math.floor(t||0));return Math.floor(t/60)+':'+String(t%60).padStart(2,'0')};
+let local=false;
+const PLAY='<path d="M8 5v14l11-7z"/>',PAUSE='<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>';
+au.addEventListener('loadedmetadata',()=>{local=true;dur.textContent=fmt(au.duration);pb.removeAttribute('target');pb.setAttribute('href','#song')});
+au.addEventListener('error',()=>{local=false});
+pb.addEventListener('click',e=>{
+  e.preventDefault();
+  if(!local){pnote.textContent='Loading the song...';au.load();return}
+  if(au.paused){au.play().catch(()=>{pnote.textContent='Tap play again to start the song'})}else au.pause();
+});
+au.addEventListener('play',()=>{pl.classList.add('playing');pi.innerHTML=PAUSE;pb.setAttribute('aria-label','Pause')});
+au.addEventListener('pause',()=>{pl.classList.remove('playing');pi.innerHTML=PLAY;pb.setAttribute('aria-label','Play')});
+au.addEventListener('ended',()=>{au.currentTime=0});
+/* autoplay: try immediately; if the browser blocks it, start on the first tap or key press */
+const gestures=['pointerdown','touchend','keydown','click'];
+function offG(){gestures.forEach(t=>removeEventListener(t,onG,true))}
+function onG(e){offG();if(pb.contains(e.target)||!au.paused)return;au.play().catch(()=>{})}
+au.addEventListener('play',()=>{if(pnote.textContent.indexOf('Tap anywhere')===0)pnote.textContent=''});
+au.play().catch(()=>{pnote.textContent='Tap anywhere to start the song';gestures.forEach(t=>addEventListener(t,onG,true))});
+au.addEventListener('timeupdate',()=>{const p=au.duration?au.currentTime/au.duration*100:0;fill.style.width=p+'%';bar.setAttribute('aria-valuenow',Math.round(p));cur.textContent=fmt(au.currentTime)});
+const seek=d=>{if(local)au.currentTime=Math.min(Math.max(0,au.currentTime+d),au.duration||0)};
+document.getElementById('back').addEventListener('click',()=>seek(-10));
+document.getElementById('fwd').addEventListener('click',()=>seek(10));
+bar.addEventListener('click',e=>{if(!local)return;const r=bar.getBoundingClientRect();au.currentTime=(e.clientX-r.left)/r.width*au.duration});
+bar.addEventListener('keydown',e=>{if(e.key==='ArrowRight')seek(5);if(e.key==='ArrowLeft')seek(-5)});
+/* cover.jpg, if shipped with the page, replaces the placeholder */
+const img=new Image();img.alt='Lovers Rock, TV Girl';img.onload=()=>{const c=document.getElementById('cover');c.innerHTML='';c.appendChild(img)};img.src='cover.jpg';
+
+/* confetti */
+const cv=document.getElementById('confetti'),ctx=cv.getContext('2d');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let parts=[],raf=0;
+function size(){cv.width=innerWidth*devicePixelRatio;cv.height=innerHeight*devicePixelRatio}
+size();addEventListener('resize',size);
+function confetti(){
+  if(reduce)return;
+  const W=innerWidth,cl=['#e23a4e','#8b0f24','#f6e6e9','#5a0b1e','#ff6b7d','#b31a30'];
+  for(let i=0;i<180;i++)parts.push({x:Math.random()*W,y:-20-Math.random()*innerHeight*.5,vx:(Math.random()-.5)*3,vy:2+Math.random()*3,r:Math.random()*Math.PI,vr:(Math.random()-.5)*.3,w:6+Math.random()*6,h:8+Math.random()*8,c:cl[i%cl.length]});
+  if(!raf)raf=requestAnimationFrame(tick);
+}
+function tick(){
+  const d=devicePixelRatio;ctx.clearRect(0,0,cv.width,cv.height);
+  parts=parts.filter(p=>p.y<innerHeight+30);
+  for(const p of parts){p.x+=p.vx;p.y+=p.vy;p.vy+=.03;p.r+=p.vr;
+    ctx.save();ctx.translate(p.x*d,p.y*d);ctx.rotate(p.r);ctx.fillStyle=p.c;ctx.fillRect(-p.w*d/2,-p.h*d/2,p.w*d,p.h*d*Math.abs(Math.cos(p.r*2)));ctx.restore()}
+  raf=parts.length?requestAnimationFrame(tick):0;
+  if(!raf)ctx.clearRect(0,0,cv.width,cv.height);
+}
+}
+</script>
+</body>
+</html>
